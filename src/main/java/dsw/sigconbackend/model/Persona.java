@@ -9,40 +9,46 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-@Data
 @Entity
+@Table(name = "persona")
+@Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name="persona")
 public class Persona {
-
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Column(name="id_persona",nullable=false)
-    private Long id;
-
-    @Column(name="apellido_paterno", nullable = false, length = 100)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_persona", nullable = false)
+    private Long idPersona;
+    @Column(name = "apellido_paterno",nullable = false, length = 100)
     private String apellidoPaterno;
-
-    @Column(name="apellido_materno", nullable = false, length = 100)
+    @Column(name = "apellido_materno",nullable = false, length = 100)
     private String apellidoMaterno;
-
-    @Column(nullable = false, length = 60)
+    @Column(nullable = false, length = 100)
     private String nombres;
-
-    @Column(name="fecha_nacimiento", nullable = false)
+    @Column(name = "fecha_nacimiento",nullable = false)
     private LocalDate fechaNacimiento;
-
-    @Column(nullable = false, length = 120)
+    @Column(name = "ndocumento", nullable = false, unique = true)
+    private String numDocumento;
+    @Column(nullable = false, length = 200)
     private String direccion;
+    @Column(nullable = false)
+    private String telefono;
+    @Column(name = "created_at",nullable = true, updatable = false)
+    private LocalDateTime createdAt = LocalDateTime.now();
+    @Column(name = "updated_at",nullable = true )
+    private LocalDateTime updatedAt = LocalDateTime.now();
 
-    @Column(name="ndocumento", nullable = false, unique=true)
-    private Long numeroDocumento;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="id_sexo", referencedColumnName="id_sexo", nullable = false)
+    private Sexo sexo;
 
-    @Column(name="create_at", nullable = false, updatable=false)
-    private LocalDateTime createAt = LocalDateTime.now();
+    @ManyToOne(fetch = FetchType.EAGER)//LAZY
+    @JoinColumn(name="id_tipo_documento", referencedColumnName="id_tipo_documento", nullable = false)
+    private TipoDocumento tipoDocumento;
 
-    @Column(name="update_at", nullable = true)
-    private LocalDateTime updateAt = LocalDateTime.now();
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "idubigeo", referencedColumnName = "idubigeo", nullable = false)
+    private Ubigeo ubigeo;
+
 }
