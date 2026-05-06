@@ -16,7 +16,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PersonaRequest {
-    private Long idpersona;
+    private Long idPersona;
     private String apellidoPaterno;
     private String apellidoMaterno;
     private String nombres;
@@ -30,7 +30,7 @@ public class PersonaRequest {
 
     public static Persona toEntity(PersonaRequest personaRequest){
         Persona persona = new Persona();
-        if(personaRequest.getIdpersona()!=null && personaRequest.getIdpersona()>0)
+        if(personaRequest.getIdPersona()!=null && personaRequest.getIdPersona()>0)
             persona.setIdPersona(persona.getIdPersona());
         else
             persona.setIdPersona(null);
