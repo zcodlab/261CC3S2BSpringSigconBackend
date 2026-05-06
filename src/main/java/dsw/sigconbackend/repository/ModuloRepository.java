@@ -11,5 +11,5 @@ import java.util.List;
 @Repository
 public interface ModuloRepository extends JpaRepository<Modulo, Integer> {
     @Query("SELECT m FROM Modulo m JOIN RolModulo rm ON m.idMod = rm.idMod WHERE rm.idRol = :idRol")
-    List<Modulo> findByRolId(@Param("idRol") Integer idRol);
+    List<Modulo> findByIdRol(@Param("idRol") Integer idRol);
 }
