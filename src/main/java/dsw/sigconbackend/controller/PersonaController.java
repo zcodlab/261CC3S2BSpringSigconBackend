@@ -36,8 +36,8 @@ public class PersonaController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ErrorResponse.builder().message("Personas not found").build());
         return ResponseEntity.ok(listaPersonaResponse);
     }
-    
-    @GetMapping("/find")
+
+    @PostMapping("/find")
     public ResponseEntity<?> findPersonaById(@RequestBody Optional<PersonaRequest> personaRequest){
         logger.info(">find" +  personaRequest.toString());
         PersonaResponse personaResponse;
@@ -53,7 +53,7 @@ public class PersonaController {
         
     }
     
-    @GetMapping("/findNumdocumento")
+    @PostMapping("/findNumdocumento")
     public ResponseEntity<?> findByNumdocumento(@RequestBody PersonaRequest personaRequest){
         logger.info(">findNumdocumento" +  personaRequest.toString());
         PersonaResponse personaResponse;
