@@ -22,7 +22,7 @@ public class PersonaRequest {
     private String nombres;
     private String idSexo;
     private LocalDate fechaNacimiento;
-    private Integer idTipoDcoumento;
+    private Integer idTipoDocumento;
     private String numDocumento;
     private String direccion;
     private String telefono;
@@ -44,8 +44,8 @@ public class PersonaRequest {
         persona.setTelefono(personaRequest.getTelefono());
         if(personaRequest.getIdSexo()!=null)
             persona.setSexo(Sexo.builder().idSexo(personaRequest.getIdSexo()).build());
-        if(personaRequest.getIdTipoDcoumento()!=null)
-            persona.setTipoDocumento(TipoDocumento.builder().idTipoDocumento(personaRequest.getIdTipoDcoumento()).build());
+        if(personaRequest.getIdTipoDocumento()!=null)
+            persona.setTipoDocumento(TipoDocumento.builder().idTipoDocumento(personaRequest.getIdTipoDocumento()).build());
         if(personaRequest.getIdUbigeo()!=null)
             persona.setUbigeo(Ubigeo.builder().idUbigeo(personaRequest.getIdUbigeo()).build());
         return persona;

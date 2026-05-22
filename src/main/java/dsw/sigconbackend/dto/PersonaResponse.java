@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PersonaResponse {
-    private Long idpersona;
+    private Long idPersona;
     private String apellidoPaterno;
     private String apellidoMaterno;
     private String nombres;
@@ -32,7 +32,7 @@ public class PersonaResponse {
 
     public static PersonaResponse fromEntity(Persona persona){
         return PersonaResponse.builder()
-                .idpersona(persona.getIdPersona())
+                .idPersona(persona.getIdPersona())
                 .apellidoPaterno(persona.getApellidoPaterno())
                 .apellidoMaterno(persona.getApellidoMaterno())
                 .nombres(persona.getNombres())
