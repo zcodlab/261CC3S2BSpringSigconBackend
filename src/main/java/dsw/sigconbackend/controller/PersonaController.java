@@ -86,13 +86,14 @@ public class PersonaController {
     
     @PutMapping()
     public ResponseEntity<?> updatePersona(@RequestBody PersonaRequest personaRequest){
-        logger.info(">update" +  personaRequest.toString());
+        logger.info(">update1" +  personaRequest.toString());
         PersonaResponse personaResponse;
         try{
             personaResponse=personaService.findPersona(personaRequest.getIdPersona());
+
             if (personaResponse==null)
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ErrorResponse.builder().message("Persona not found").build());           
-            
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ErrorResponse.builder().message("Persona not found").build());
+
             personaResponse=personaService.updatePersona(personaRequest);
         }catch(Exception e){
             logger.error("Error inesperado", e);

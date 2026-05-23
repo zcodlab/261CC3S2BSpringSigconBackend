@@ -52,7 +52,6 @@ public class PersonaService {
         Persona persona = PersonaRequest.toEntity(personaRequest);
         persona.setCreatedAt(java.time.LocalDateTime.now());
         persona.setUpdatedAt(java.time.LocalDateTime.now());
-
         persona=personaRepository.save(persona);
         PersonaResponse personaResponse=PersonaResponse.fromEntity(persona);
         return personaResponse;
