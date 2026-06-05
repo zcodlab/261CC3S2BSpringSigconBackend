@@ -27,7 +27,7 @@ public class PersonaService {
     SexoRepository sexoRepository;
     
     public List<PersonaResponse> listPersonas(){
-        return PersonaResponse.fromEntities(personaRepository.findAll());
+        return PersonaResponse.fromEntities(personaRepository.findAllByOrderByIdPersonaDesc());
     }
     public PersonaResponse findPersona(Long id){
         return PersonaResponse.fromEntity(personaRepository.findById(id).get());                
