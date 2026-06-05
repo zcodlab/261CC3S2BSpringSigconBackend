@@ -18,7 +18,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -27,7 +26,7 @@ public class AuthService {
     private final PersonaRepository personaRepository;
     private final ModuloRepository moduloRepository;
     private final PasswordEncoder passwordEncoder;
-    private final JwtUtil jwtService;
+    private final JwtService jwtService;
 
     public AuthResponseDTO register(RegisterRequestDTO request){
         if(usuarioRepository.findByEmail(request.getEmail()).isPresent())
@@ -70,13 +69,31 @@ public class AuthService {
             modules=moduloRepository.findByIdRol(usuario.getRol().getIdRol());
 
         var token= jwtService.generateToken(usuario,modules);
+        var refreshToken = jwtService.generateRefreshToken(usuario);
         return AuthResponseDTO.builder()
                 .token(token)
+                .refreshToken(refreshToken)
                 .build();
 
     }
 
+    public AuthResponseDTO refreshToken(String refreshToken) {
+        String email = jwtService.extractUsername(refreshToken);
+        var usuario = usuarioRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
 
+        if (!jwtService.isTokenValid(refreshToken, usuario)) {
+            throw new BadCredentialsException("Token de refresco invalido");
+        }
 
+        List<Modulo> modules = Collections.emptyList();
+        if (usuario.getRol() != null)
+            modules = moduloRepository.findByIdRol(usuario.getRol().getIdRol());
 
+        var token = jwtService.generateToken(usuario, modules);
+        return AuthResponseDTO.builder()
+                .token(token)
+                .refreshToken(refreshToken)
+                .build();
+    }
 }

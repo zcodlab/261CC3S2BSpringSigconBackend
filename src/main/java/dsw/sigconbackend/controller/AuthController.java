@@ -3,6 +3,7 @@ package dsw.sigconbackend.controller;
 import dsw.sigconbackend.dto.AuthResponseDTO;
 import dsw.sigconbackend.dto.LoginRequestDTO;
 import dsw.sigconbackend.dto.RegisterRequestDTO;
+import dsw.sigconbackend.dto.TokenRefreshRequest;
 import dsw.sigconbackend.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -29,6 +30,11 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<AuthResponseDTO> login(@RequestBody LoginRequestDTO request) {
         return ResponseEntity.ok(authService.login(request));
+    }
+
+    @PostMapping("/refresh")
+    public ResponseEntity<AuthResponseDTO> refresh(@RequestBody TokenRefreshRequest request) {
+        return ResponseEntity.ok(authService.refreshToken(request.getRefreshToken()));
     }
 
 }
