@@ -83,6 +83,9 @@ public class JwtService {
     }
 
     public String extractUsername(String token) {
+        if (token == null || token.isBlank()) {
+            return null;
+        }
         return extractClaim(token, Claims::getSubject);
     }
 

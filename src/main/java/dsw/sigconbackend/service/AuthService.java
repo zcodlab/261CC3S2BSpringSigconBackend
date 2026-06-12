@@ -78,6 +78,9 @@ public class AuthService {
     }
 
     public AuthResponseDTO refreshToken(String refreshToken) {
+        if (refreshToken == null || refreshToken.isBlank()) {
+            throw new IllegalArgumentException("El token de refresco es obligatorio");
+        }
         String email = jwtService.extractUsername(refreshToken);
         var usuario = usuarioRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
